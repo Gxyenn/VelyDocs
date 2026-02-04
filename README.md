@@ -4,7 +4,7 @@
 
 # Hai Welcome To VelyDocs
 > Wujudkan Website streaming mu dengan VelyDocs.
-> Apikey Anime Dengan Sub Indo dan jug lengkap.
+> Apikey Anime Dengan Sub Indo dan juga lengkap.
 > Free
 
 > Di buat Gxyenn Untuk Kalian Semua 🥳
