@@ -14,7 +14,7 @@ const getRateLimitTier = (apiKey?: string): 'default' | 'premium' | 'unlimited' 
   if (!apiKey) return 'default';
   
   const agent = config.specialAgents.keys.find(
-    key => key.key === apiKey && key.active
+    (key: any) => key.key === apiKey && key.active
   );
   
   if (agent) {
@@ -93,58 +93,61 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return sendResponse(res, 200, {});
   }
 
-  // Extract API key from header
-  const apiKey = req.headers['x-api-key'] as string | undefined;
-  const tier = getRateLimitTier(apiKey);
-  
-  // Check rate limit
-  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
-  const identifier = apiKey || `ip:${clientIp}`;
-  
-  const rateLimitCheck = checkRateLimit(identifier, tier);
-  
-  if (!rateLimitCheck.allowed) {
-    const tierConfig = config.api.rateLimit[tier];
-    return sendResponse(
-      res, 
-      429, 
-      { 
-        status: 'error', 
-        message: tierConfig.message,
-        resetAt: new Date(rateLimitCheck.resetTime).toISOString()
-      },
-      {
-        limit: tierConfig.requests,
-        remaining: 0,
-        resetTime: rateLimitCheck.resetTime
-      }
-    );
-  }
-
-  const { url = '' } = req;
-  const urlObj = new URL(url, `http://${req.headers.host}`);
-  const pathParts = urlObj.pathname.split('/').filter(p => p !== ''); 
-  const page = parseInt(urlObj.searchParams.get('page') || '1', 10);
-  const query = urlObj.searchParams.get('q') || urlObj.searchParams.get('query') || '';
-  const genre = urlObj.searchParams.get('genre') || '';
-  
-  const apiIdx = pathParts.indexOf('api');
-  if (apiIdx === -1 || pathParts.length < apiIdx + 2) {
-    return sendResponse(res, 400, { 
-      status: 'error', 
-      message: 'Invalid endpoint. Use /api/:source/:type or /api/:source/:type/:param' 
-    });
-  }
-
-  const source = pathParts[apiIdx + 1];
-  const type = pathParts[apiIdx + 2];
-  const param = pathParts[apiIdx + 3];
+  let source = 'unknown';
 
   try {
+    // Extract API key from header
+    const apiKey = req.headers['x-api-key'] as string | undefined;
+    const tier = getRateLimitTier(apiKey);
+
+    // Check rate limit - safely handle req.socket being undefined in serverless
+    const clientIp = (req.headers['x-forwarded-for'] as string) || req.socket?.remoteAddress || 'unknown';
+    const identifier = apiKey || `ip:${clientIp}`;
+
+    const rateLimitCheck = checkRateLimit(identifier, tier);
+
+    if (!rateLimitCheck.allowed) {
+      const tierConfig = config.api.rateLimit[tier];
+      return sendResponse(
+        res,
+        429,
+        {
+          status: 'error',
+          message: tierConfig.message,
+          resetAt: new Date(rateLimitCheck.resetTime).toISOString()
+        },
+        {
+          limit: tierConfig.requests,
+          remaining: 0,
+          resetTime: rateLimitCheck.resetTime
+        }
+      );
+    }
+
+    // Robust URL parsing
+    const url = req.url || '';
+    const urlObj = new URL(url, 'http://localhost');
+    const pathParts = urlObj.pathname.split('/').filter(p => p !== '');
+    const page = parseInt(urlObj.searchParams.get('page') || '1', 10);
+    const query = urlObj.searchParams.get('q') || urlObj.searchParams.get('query') || '';
+    const genre = urlObj.searchParams.get('genre') || '';
+
+    const apiIdx = pathParts.indexOf('api');
+    if (apiIdx === -1 || pathParts.length < apiIdx + 2) {
+      return sendResponse(res, 400, {
+        status: 'error',
+        message: 'Invalid endpoint. Use /api/:source/:type or /api/:source/:type/:param'
+      });
+    }
+
+    source = pathParts[apiIdx + 1];
+    const type = pathParts[apiIdx + 2];
+    const param = pathParts[apiIdx + 3];
+
     let result: any = null;
     
     // Check if source is enabled
-    const sourceConfig = config.sources[source as keyof typeof config.sources];
+    const sourceConfig = (config.sources as any)[source];
     if (!sourceConfig || !sourceConfig.enabled) {
       return sendResponse(res, 404, { 
         status: 'error', 
