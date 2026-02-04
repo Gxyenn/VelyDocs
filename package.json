@@ -1,12 +1,17 @@
 {
-  "name": "velydocs-|-next-gen-anime-api-provider",
+  "name": "velydocs-v2-next-gen-anime-api",
+  "version": "2.0.0",
+  "description": "Production-ready, real-time anime scraping API with unified JSON responses",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "vercel-build": "vite build",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "lucide-react": "^0.563.0",
@@ -18,8 +23,38 @@
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.0.0",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0"
-  }
+    "vite": "^6.2.0",
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "anime",
+    "api",
+    "scraper",
+    "streaming",
+    "otakudesu",
+    "samehadaku",
+    "kuramanime",
+    "winbu",
+    "typescript",
+    "vercel"
+  ],
+  "author": "Gxyenn",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gxyenn/velydocs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gxyenn/velydocs/issues"
+  },
+  "homepage": "https://velydocs.vercel.app"
 }

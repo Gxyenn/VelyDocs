@@ -5,6 +5,10 @@ export interface AnimeData {
   url: string;
   genre?: string[];
   updated?: string;
+  slug?: string;
+  status?: string;
+  score?: string;
+  type?: string;
 }
 
 export interface PaginationData {
@@ -23,10 +27,11 @@ export interface ApiResponse {
   pagination?: PaginationData;
   message?: string;
   timestamp?: string;
+  tier?: string;
 }
 
-export type ScraperSource = 'winbu' | 'samehadaku' | 'kuramanime';
-export type ScraperType = 'ongoing' | 'latest' | 'genre' | 'anime';
+export type ScraperSource = 'winbu' | 'samehadaku' | 'kuramanime' | 'otakudesu';
+export type ScraperType = 'ongoing' | 'latest' | 'genre' | 'anime' | 'search' | 'schedule' | 'complete' | 'batch';
 
 export interface EndpointDef {
   method: 'GET';
@@ -35,4 +40,18 @@ export interface EndpointDef {
   params?: { name: string; type: string; required: boolean }[];
   source: ScraperSource;
   type: ScraperType;
+}
+
+export interface RateLimitConfig {
+  requests: number;
+  window: string;
+  message: string;
+}
+
+export interface SpecialAgent {
+  key: string;
+  name: string;
+  tier: 'default' | 'premium' | 'unlimited';
+  active: boolean;
+  createdAt: string;
 }

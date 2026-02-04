@@ -20,7 +20,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#000000] text-white selection:bg-white selection:text-black font-sans">
-      {/* Compact Header */}
       <header className="sticky top-0 z-50 border-b border-zinc-900 bg-black/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
@@ -36,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <span className="text-base sm:text-lg font-black tracking-tighter uppercase italic leading-none">
                   VelyDocs
                 </span>
-                <span className="text-[7px] font-bold text-zinc-600 tracking-[0.2em] uppercase hidden xs:block">CORE ENGINE</span>
+                <span className="text-[7px] font-bold text-zinc-600 tracking-[0.2em] uppercase hidden xs:block">v2.0 CORE ENGINE</span>
               </div>
             </Link>
 
@@ -75,7 +74,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        {/* Mobile Nav */}
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-zinc-900 bg-black p-3 space-y-1.5 animate-in slide-in-from-top duration-200 shadow-2xl">
             {navLinks.map((link) => (
@@ -112,7 +110,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   />
               </div>
               <p className="text-zinc-600 text-[9px] font-bold uppercase tracking-[0.2em]">
-                VelyDocs Production Kernel
+                VelyDocs v2.0 Production Kernel
               </p>
             </div>
             
@@ -122,7 +120,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <span>© {new Date().getFullYear()} VelyDocs Core</span>
               </div>
               <div className="flex gap-6 text-[9px] font-mono text-zinc-600 font-bold uppercase">
-                <span>Kernel v1.2</span>
+                <span>Kernel v2.0</span>
                 <span>Dev: Gxyenn</span>
               </div>
             </div>
