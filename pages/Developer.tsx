@@ -1,98 +1,80 @@
 import React from 'react';
-import { Shield, Server, Clock, Code } from 'lucide-react';
+import { Shield, Server, Clock, Code, Cpu } from 'lucide-react';
 
 const Developer: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-16">
-      <div className="mb-12 text-center">
-        <h1 className="text-3xl font-bold text-white mb-4">Developer Resources</h1>
-        <p className="text-slate-400">Everything you need to know about integrating VelyDocs.</p>
+    <div className="max-w-4xl mx-auto px-6 py-24 bg-black min-h-screen">
+      <div className="mb-24 text-center">
+        <div className="inline-block p-4 bg-zinc-900 rounded-3xl border border-zinc-800 mb-8">
+          <Cpu className="w-8 h-8 text-white" />
+        </div>
+        <h1 className="text-6xl font-black text-white mb-6 uppercase italic tracking-tighter">Developer Hub</h1>
+        <div className="h-1.5 w-16 bg-white mx-auto mb-8"></div>
+        <p className="text-zinc-600 font-mono text-[11px] tracking-[0.5em] uppercase font-black">Core Specifications & Policy</p>
       </div>
 
-      <div className="space-y-12">
-        {/* Section 1 */}
+      <div className="space-y-24">
+        {/* Rules Section */}
         <section>
-          <h2 className="flex items-center gap-2 text-xl font-bold text-white mb-6 pb-2 border-b border-slate-800">
-            <Shield className="w-5 h-5 text-indigo-400" />
-            Usage Policy
+          <h2 className="flex items-center gap-4 text-xl font-black text-white mb-12 pb-4 border-b border-zinc-900 uppercase italic tracking-tighter">
+            <Shield className="w-6 h-6" />
+            Operational Rules
           </h2>
-          <div className="prose prose-invert max-w-none text-slate-300">
-            <p>
-              VelyDocs is a free-to-use API, but resources are shared. To ensure stability for everyone:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 mt-4">
-              <li>
-                <span className="text-white font-medium">Rate Limiting:</span> Please limit requests to 
-                <code className="bg-slate-800 px-1 py-0.5 rounded mx-1 text-sm">60 requests/minute</code> per IP.
-              </li>
-              <li>
-                <span className="text-white font-medium">Caching:</span> We implement a 5-minute server-side cache. 
-                Frequent polling of the same endpoint will receive cached data.
-              </li>
-              <li>
-                <span className="text-white font-medium">Attribution:</span> Not required, but appreciated.
-              </li>
-            </ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <RuleItem 
+              label="Rate Limits" 
+              value="60 req/min" 
+              desc="Traffic bursts are permitted. Sustained heavy volume triggers automatic IP cooling periods." 
+            />
+            <RuleItem 
+              label="Persistence" 
+              value="None" 
+              desc="VelyDocs does not store source data. Every response is generated in real-time via live parsing." 
+            />
           </div>
         </section>
 
-        {/* Section 2 */}
+        {/* Tech Stack */}
         <section>
-          <h2 className="flex items-center gap-2 text-xl font-bold text-white mb-6 pb-2 border-b border-slate-800">
-            <Server className="w-5 h-5 text-cyan-400" />
-            Tech Stack
+          <h2 className="flex items-center gap-4 text-xl font-black text-white mb-12 pb-4 border-b border-zinc-900 uppercase italic tracking-tighter">
+            <Server className="w-6 h-6" />
+            Infrastructure
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-4 bg-slate-900 rounded-lg border border-slate-800">
-              <h3 className="font-bold text-white mb-2 flex items-center gap-2">
-                <Code className="w-4 h-4" /> Backend
-              </h3>
-              <p className="text-sm text-slate-400">
-                Node.js running on Vercel Serverless Functions. Scrapers use <code>cheerio</code> for 
-                high-performance HTML parsing without the overhead of a headless browser.
-              </p>
-            </div>
-            <div className="p-4 bg-slate-900 rounded-lg border border-slate-800">
-              <h3 className="font-bold text-white mb-2 flex items-center gap-2">
-                <Clock className="w-4 h-4" /> Latency
-              </h3>
-              <p className="text-sm text-slate-400">
-                Average response time is 200-800ms depending on the target source's response time.
-                Cached responses are served in &lt;50ms.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <TechCard
+              title="Native Parsing Core"
+              desc="Our kernel uses high-speed HTML traversal algorithms to map unstructured DOM elements into unified JSON objects."
+            />
+            <TechCard
+              title="Edge Distribution"
+              desc="Compute nodes are deployed across 20+ global regions to minimize Round Trip Time (RTT) between source and client."
+            />
           </div>
         </section>
 
-        {/* Section 3 */}
+        {/* Integration Example */}
         <section>
-          <h2 className="flex items-center gap-2 text-xl font-bold text-white mb-6 pb-2 border-b border-slate-800">
-            <Code className="w-5 h-5 text-purple-400" />
-            Integration Example
+          <h2 className="flex items-center gap-4 text-xl font-black text-white mb-12 pb-4 border-b border-zinc-900 uppercase italic tracking-tighter">
+            <Code className="w-6 h-6" />
+            Integration
           </h2>
-          <div className="bg-slate-950 rounded-lg border border-slate-800 overflow-hidden">
-            <div className="px-4 py-2 bg-slate-900 border-b border-slate-800 text-xs font-mono text-slate-500">
-              Typescript
+          <div className="bg-zinc-950 rounded-[2rem] border border-zinc-900 overflow-hidden shadow-2xl">
+            <div className="px-8 py-5 bg-zinc-900/50 border-b border-zinc-900 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
+              Typescript Implementation
             </div>
-            <pre className="p-4 overflow-x-auto text-sm text-slate-300 font-mono">
-{`interface Anime {
-  title: string;
-  episode: string;
-  url: string;
-}
+            <pre className="p-10 overflow-x-auto text-xs text-zinc-400 font-mono leading-relaxed bg-black selection:bg-zinc-800">
+{`import axios from 'axios';
 
-async function getUpdates() {
-  try {
-    const res = await fetch('https://velydocs.vercel.app/api/winbu/ongoing');
-    const json = await res.json();
-    
-    if (json.status === 'success') {
-      return json.data as Anime[];
-    }
-  } catch (error) {
-    console.error('API Error:', error);
+const PROBE_URL = 'https://api.velydocs.com/api/winbu/ongoing';
+
+async function syncNode() {
+  const { data } = await axios.get(PROBE_URL, {
+    params: { page: 1 }
+  });
+
+  if (data.status === 'success') {
+    return data.data; // Array<AnimeMetadata>
   }
-  return [];
 }`}
             </pre>
           </div>
@@ -101,5 +83,22 @@ async function getUpdates() {
     </div>
   );
 };
+
+const RuleItem: React.FC<{ label: string; value: string; desc: string }> = ({ label, value, desc }) => (
+  <div className="p-8 bg-zinc-950 border border-zinc-900 rounded-3xl group hover:border-white transition-all duration-500">
+    <div className="flex items-center justify-between mb-4">
+      <span className="text-[11px] font-black uppercase tracking-widest text-zinc-400">{label}</span>
+      <span className="text-[10px] font-mono bg-white text-black px-3 py-1 rounded-lg font-black">{value}</span>
+    </div>
+    <p className="text-xs text-zinc-500 font-medium leading-relaxed group-hover:text-zinc-300 transition-colors">{desc}</p>
+  </div>
+);
+
+const TechCard: React.FC<{ title: string; desc: string }> = ({ title, desc }) => (
+  <div className="p-10 bg-zinc-950 border border-zinc-900 rounded-3xl">
+    <h3 className="font-black text-white mb-4 text-sm uppercase italic tracking-tighter">{title}</h3>
+    <p className="text-xs text-zinc-500 leading-relaxed font-medium">{desc}</p>
+  </div>
+);
 
 export default Developer;

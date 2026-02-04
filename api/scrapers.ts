@@ -32,11 +32,9 @@ const fetchHtml = async (url: string): Promise<string> => {
 };
 
 const extractPagination = ($: cheerio.CheerioAPI, currentPage: number): PaginationData => {
-  // Mencoba berbagai selector paginasi umum pada situs anime
   const nextBtn = $('.pagination a.next, .nav-links a.next, .pagination-item.next, a:contains("Next"), a.next.page-numbers').first();
   const prevBtn = $('.pagination a.prev, .nav-links a.prev, .pagination-item.prev, a:contains("Prev"), a.prev.page-numbers').first();
   
-  // Deteksi nomor halaman dari teks jika selector gagal
   const hasNext = nextBtn.length > 0;
   const hasPrev = prevBtn.length > 0 || currentPage > 1;
 
@@ -113,7 +111,12 @@ export const samehadakuScraper = {
     return {
       title: $('.entry-title').text().trim(),
       poster: $('.thumb img').attr('src'),
-      synopsis: $('.entry-content').text().trim(),
+      synopsis: $('.entry-content p').first().text().trim() || $('.entry-content').text().trim(),
+      details: {
+        type: $('.info-content .spe span:contains("Type")').text().split(':')[1]?.trim(),
+        status: $('.info-content .spe span:contains("Status")').text().split(':')[1]?.trim(),
+        episodes: $('.info-content .spe span:contains("Episodes")').text().split(':')[1]?.trim(),
+      },
       episodes: $('.lsteps ul li').map((_, el) => ({
         title: $(el).find('.eps a').text().trim(),
         url: $(el).find('.eps a').attr('href')
@@ -139,7 +142,6 @@ export const kuramanimeScraper = {
       if (title) data.push({ title, poster, episode, url: link });
     });
 
-    // Paginasi khusus Kuramanime
     const nextBtn = $('.product__pagination a:contains("Next"), .product__pagination a i.fa-angle-right');
     
     return { 
