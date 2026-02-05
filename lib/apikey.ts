@@ -15,14 +15,6 @@ const parseEnvApiKeys = () => {
 };
 
 const getApiKeyFromRequest = (req: Request) => {
-  const headerKey = req.headers.get("x-api-key") || req.headers.get("X-API-Key");
-  if (headerKey) return headerKey.trim();
-
-  const authHeader = req.headers.get("authorization") || req.headers.get("Authorization");
-  if (authHeader?.toLowerCase().startsWith("bearer ")) {
-    return authHeader.slice(7).trim();
-  }
-
   try {
     const url = new URL(req.url);
     const queryKey =

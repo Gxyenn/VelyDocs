@@ -34,10 +34,12 @@ const Docs: React.FC = () => {
     setResponse(null);
 
     try {
-      const headers: HeadersInit = { 'Content-Type': 'application/json' };
-      if (apiKey) headers['X-API-Key'] = apiKey;
+      const targetUrl = new URL(`${BASE_API_URL}${selectedEndpoint.path}`, window.location.origin);
+      if (apiKey) targetUrl.searchParams.set('apikey', apiKey);
 
-      const res = await fetch(`${BASE_API_URL}${selectedEndpoint.path}`, { headers });
+      const res = await fetch(targetUrl.toString(), {
+        headers: { 'Content-Type': 'application/json' },
+      });
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
         throw new Error(errData.message || `HTTP ${res.status}`);
@@ -62,7 +64,7 @@ const Docs: React.FC = () => {
           type="text"
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
-          placeholder="Enter API key for higher rate limits"
+          placeholder="Masukkan API key (query param apikey)"
           className="w-full px-4 py-3 bg-black border border-zinc-800 rounded-lg text-white font-mono"
         />
         <p className="text-xs text-zinc-600 mt-2">

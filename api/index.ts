@@ -77,7 +77,7 @@ const checkRateLimit = (identifier: string, tier: 'default' | 'premium' | 'unlim
 const sendResponse = (res: VercelResponse, status: number, data: any, rateLimit?: any) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-API-Key');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
   if (rateLimit) {
     res.setHeader('X-RateLimit-Limit', rateLimit.limit.toString());
@@ -96,8 +96,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let source = 'unknown';
 
   try {
-    // Extract API key from header
-    const apiKey = req.headers['x-api-key'] as string | undefined;
+    // Extract API key from query params
+    const apiKey = (new URL(req.url || '', 'http://localhost').searchParams.get('apikey') || undefined);
     const tier = getRateLimitTier(apiKey);
 
     // Check rate limit - safely handle req.socket being undefined in serverless

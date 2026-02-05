@@ -92,17 +92,14 @@ const Developer: React.FC = () => {
             </div>
             <pre className="p-6 overflow-x-auto text-sm text-zinc-400 font-mono">
 {`const API_BASE = 'https://velydocs.vercel.app/api';
-const API_KEY = 'YOUR_API_KEY'; // Required for otakudesu endpoints
+const API_KEY = 'YOUR_API_KEY'; // dipakai via query apikey
 
 async function getList(source, page = 1) {
-  const headers = {};
-  if (API_KEY) headers['X-API-Key'] = API_KEY;
-  
-  const res = await fetch(
-    \`\${API_BASE}/\${source}?page=\${page}\`, 
-    { headers }
-  );
-  
+  const url = new URL(\`\${API_BASE}/\${source}\`);
+  url.searchParams.set('page', String(page));
+  if (API_KEY) url.searchParams.set('apikey', API_KEY);
+
+  const res = await fetch(url.toString());
   return await res.json();
 }
 
@@ -128,7 +125,7 @@ console.log(data);`}
             </div>
             <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg">
               <div className="text-xs text-zinc-500 mb-2 uppercase">Otakudesu with API Key</div>
-              <code className="block text-sm font-mono text-zinc-300 break-all">curl -H "X-API-Key: velydocs_free_1" "https://velydocs.vercel.app/api/otakudesu/ongoing?page=1"</code>
+              <code className="block text-sm font-mono text-zinc-300 break-all">curl "https://velydocs.vercel.app/api/otakudesu/ongoing?page=1&apikey=velydocs_free_1"</code>
             </div>
           </div>
         </section>
