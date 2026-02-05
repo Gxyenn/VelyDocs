@@ -1,8 +1,0 @@
-{
-  "name": "VelyDocs v2.0 | Next-Gen Anime API Provider",
-  "description": "Production-ready, real-time anime scraping API with unified JSON responses. Support for Winbu, Samehadaku, Kuramanime, and Otakudesu. No mock data. Pure performance.",
-  "version": "2.0.0",
-  "author": "Gxyenn",
-  "keywords": ["anime", "api", "scraper", "streaming", "typescript", "vercel"],
-  "requestFramePermissions": []
-}
