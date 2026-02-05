@@ -1,39 +1,25 @@
-import { ApiError } from "./errors";
-import { HttpError } from "./http";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-api-key",
-};
-
-export const optionsResponse = () => new Response(null, { headers: corsHeaders });
-
-export const successResponse = (source: string, data: unknown) =>
-  new Response(
-    JSON.stringify({
-      status: true,
-      source,
-      data,
-    }),
-    {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    }
-  );
-
-export const errorResponse = (error: unknown) => {
-  const payload =
-    error instanceof ApiError
-      ? { status: false, error_type: error.type, message: error.message }
-      : error instanceof HttpError
-      ? { status: false, error_type: error.type, message: error.message }
-      : { status: false, error_type: "SCRAPING_ERROR", message: "Unexpected scraping failure" };
-
-  const status =
-    error instanceof ApiError ? error.status : error instanceof HttpError ? error.status : 500;
-
-  return new Response(JSON.stringify(payload), {
-    status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
+export function success(source: string, endpoint: string, result: any, meta = {}) {
+  return Response.json({
+    message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
+    author: "Gxyenn",
+    status: true,
+    source,
+    endpoint,
+    result,
+    meta,
   });
-};
+}
+
+export function failure(source: string, endpoint: string, messageText: string) {
+  return Response.json(
+    {
+      message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
+      author: "Gxyenn",
+      status: false,
+      source,
+      endpoint,
+      error: messageText,
+    },
+    { status: 500 }
+  );
+}
