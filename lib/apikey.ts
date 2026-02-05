@@ -13,8 +13,12 @@ const extractBearer = (authorization?: string | null) => {
 };
 
 export const assertValidApiKey = (request: Request) => {
+  const { searchParams } = new URL(request.url);
   const apiKey =
-    request.headers.get("x-api-key") ?? extractBearer(request.headers.get("authorization"));
+    request.headers.get("x-api-key") ??
+    extractBearer(request.headers.get("authorization")) ??
+    searchParams.get("apikey") ??
+    searchParams.get("api_key");
 
   if (!apiKey || !validApiKeys.includes(apiKey)) {
     throw new ApiError("AUTH_ERROR", "Invalid or missing API key", 401);

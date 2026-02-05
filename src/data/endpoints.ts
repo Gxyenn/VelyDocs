@@ -14,8 +14,6 @@ export interface Endpoint {
     example?: string;
   }[];
   exampleResponse: object;
-    message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
-    author: "Gxyenn",
   testPath?: string;
 }
 
@@ -69,7 +67,7 @@ export const sources: Source[] = [
         id: "otakudesu-ongoing",
         name: "Ongoing List",
         method: "GET",
-        path: "/api/otakudesu/ongoing",
+        path: "/api/otakudesu?list=ongoing",
         source: "Otakudesu",
         category: "List",
         description: "Mendapatkan daftar semua anime yang sedang ongoing",
@@ -79,7 +77,7 @@ export const sources: Source[] = [
         exampleResponse: {
           message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
           author: "Gxyenn",
-          endpoint: "/api/otakudesu/ongoing",
+          endpoint: "/api/otakudesu?list=ongoing",
           status: true,
           source: "Otakudesu",
           result: [
@@ -96,7 +94,7 @@ export const sources: Source[] = [
         id: "otakudesu-completed",
         name: "Completed List",
         method: "GET",
-        path: "/api/otakudesu/completed",
+        path: "/api/otakudesu?list=completed",
         source: "Otakudesu",
         category: "List",
         description: "Mendapatkan daftar anime yang sudah tamat",
@@ -106,7 +104,7 @@ export const sources: Source[] = [
         exampleResponse: {
           message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
           author: "Gxyenn",
-          endpoint: "/api/otakudesu/completed",
+          endpoint: "/api/otakudesu?list=completed",
           status: true,
           source: "Otakudesu",
           result: [
@@ -122,7 +120,7 @@ export const sources: Source[] = [
         id: "otakudesu-search",
         name: "Search Anime",
         method: "GET",
-        path: "/api/otakudesu/search",
+        path: "/api/otakudesu?q={query}",
         source: "Otakudesu",
         category: "Search",
         description: "Mencari anime berdasarkan judul",
@@ -133,7 +131,7 @@ export const sources: Source[] = [
         exampleResponse: {
           message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
           author: "Gxyenn",
-          endpoint: "/api/otakudesu/search",
+          endpoint: "/api/otakudesu?q={query}",
           status: true,
           source: "Otakudesu",
           result: [
@@ -151,7 +149,7 @@ export const sources: Source[] = [
         id: "otakudesu-detail",
         name: "Anime Detail",
         method: "GET",
-        path: "/api/otakudesu/anime/:slug",
+        path: "/api/otakudesu?anime={slug}",
         source: "Otakudesu",
         category: "Detail",
         description: "Mendapatkan detail lengkap anime termasuk sinopsis, genre, dan daftar episode",
@@ -161,7 +159,7 @@ export const sources: Source[] = [
         exampleResponse: {
           message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
           author: "Gxyenn",
-          endpoint: "/api/otakudesu/anime/:slug",
+          endpoint: "/api/otakudesu?anime={slug}",
           status: true,
           source: "Otakudesu",
           result: {
@@ -187,7 +185,7 @@ export const sources: Source[] = [
         id: "otakudesu-episode",
         name: "Episode Stream",
         method: "GET",
-        path: "/api/otakudesu/episode/:slug",
+        path: "/api/otakudesu?episode={slug}",
         source: "Otakudesu",
         category: "Stream",
         description: "Mendapatkan link streaming dan download untuk episode tertentu",
@@ -197,7 +195,7 @@ export const sources: Source[] = [
         exampleResponse: {
           message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
           author: "Gxyenn",
-          endpoint: "/api/otakudesu/episode/:slug",
+          endpoint: "/api/otakudesu?episode={slug}",
           status: true,
           source: "Otakudesu",
           result: {
@@ -221,7 +219,7 @@ export const sources: Source[] = [
         id: "otakudesu-watch",
         name: "Watch Sources",
         method: "GET",
-        path: "/api/otakudesu/watch/:slug",
+        path: "/api/otakudesu?episode={slug}",
         source: "Otakudesu",
         category: "Stream",
         description: "Mendapatkan sumber video dari halaman episode",
@@ -231,7 +229,7 @@ export const sources: Source[] = [
         exampleResponse: {
           message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
           author: "Gxyenn",
-          endpoint: "/api/otakudesu/watch/:slug",
+          endpoint: "/api/otakudesu?episode={slug}",
           status: true,
           source: "Otakudesu",
           result: [
@@ -244,14 +242,14 @@ export const sources: Source[] = [
         id: "otakudesu-genre",
         name: "Genre List",
         method: "GET",
-        path: "/api/otakudesu/genres",
+        path: "/api/otakudesu",
         source: "Otakudesu",
         category: "List",
         description: "Mendapatkan daftar semua genre yang tersedia",
         exampleResponse: {
           message: "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
           author: "Gxyenn",
-          endpoint: "/api/otakudesu/genres",
+          endpoint: "/api/otakudesu",
           status: true,
           source: "Otakudesu",
           result: {
