@@ -1,4 +1,3 @@
-import { writeFile } from "node:fs/promises";
 import { ApiError } from "./errors.js";
 import { fetchHtmlWithRetry, normalizeUrl } from "./http.js";
 
@@ -64,9 +63,14 @@ const detectPostPattern = (links: string[], matcher: RegExp, fallback: string) =
   const candidate = links.find((href) => matcher.test(href));
   if (!candidate) return fallback;
 
-  const url = new URL(candidate, "https://placeholder.local");
-  const segments = url.pathname.split("/").filter(Boolean);
-  return segments.length > 1 ? `/${segments[0]}/` : fallback;
+  try {
+    // Gunakan dummy base jika href relative
+    const url = new URL(candidate, "https://placeholder.local");
+    const segments = url.pathname.split("/").filter(Boolean);
+    return segments.length > 0 ? `/${segments[0]}/` : fallback;
+  } catch {
+    return fallback;
+  }
 };
 
 const detectSearchPattern = (html: string, links: LinkInfo[]) => {
@@ -99,47 +103,52 @@ const detectListSelectors = (html: string) => {
 };
 
 const persistDetectedConfig = async (sourceName: string, config: SourceConfig) => {
-  const filePath = new URL(`../sources/${sourceName}/config.json`, import.meta.url);
+  if (process.env.NODE_ENV === 'production') return;
+
   try {
-    await writeFile(filePath, `${JSON.stringify(config, null, 2)}\n`, "utf-8");
-  } catch {
-    // best effort only (serverless fs may be read-only)
+    const fs = await import("node:fs/promises");
+    const path = await import("node:path");
+    const url = await import("node:url");
+
+    const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+    const filePath = path.resolve(__dirname, `../sources/${sourceName}/config.json`);
+    
+    await fs.writeFile(filePath, `${JSON.stringify(config, null, 2)}\n`, "utf-8");
+  } catch (error) {
+    console.warn(`[Scanner] Could not persist config for ${sourceName} (File system not available).`);
   }
 };
 
 export const scanSource = async (sourceName: string, baseUrl: string): Promise<SourceConfig> => {
   const cached = configCache.get(sourceName);
   if (cached) return cached;
-
   const html = await fetchHtmlWithRetry(baseUrl);
   const links = extractLinks(html);
   const hrefs = links.map((item) => item.href);
-
   const pageMap: SourceConfig["pageMap"] = {};
 
-  for (const link of links.slice(0, 24)) {
+  for (const link of links.slice(0, 30)) {
     const byKeyword = detectByKeywords(`${link.text} ${link.href}`);
     if (byKeyword && !pageMap[byKeyword]) {
       pageMap[byKeyword] = normalizeUrl(baseUrl, link.href);
       continue;
     }
 
-    if (Object.keys(pageMap).length >= 7) continue;
+ if (Object.keys(pageMap).length >= 7) continue;
 
     try {
-      const candidateHtml = await fetchHtmlWithRetry(normalizeUrl(baseUrl, link.href), 1, 6000);
+      const candidateHtml = await fetchHtmlWithRetry(normalizeUrl(baseUrl, link.href), 1, 5000);
       const byContent = classifyByPageContent(candidateHtml);
       if (byContent && !pageMap[byContent]) {
         pageMap[byContent] = normalizeUrl(baseUrl, link.href);
       }
     } catch {
-      // ignore this link classification failure
     }
   }
 
   const searchPattern = detectSearchPattern(html, links);
-  const animePattern = detectPostPattern(hrefs, /(anime|series|donghua|tv)/i, "/anime/");
-  const episodePattern = detectPostPattern(hrefs, /(episode|eps|watch)/i, "/episode/");
+  const animePattern = detectPostPattern(hrefs, /(anime|series|donghua|tv|movie)/i, "/anime/");
+  const episodePattern = detectPostPattern(hrefs, /(episode|eps|watch|nonton)/i, "/episode/");
 
   const config: SourceConfig = {
     baseUrl,
@@ -150,11 +159,12 @@ export const scanSource = async (sourceName: string, baseUrl: string): Promise<S
     listSelectors: detectListSelectors(html),
   };
 
-  if (!config.searchPattern || !config.animePattern || !config.episodePattern) {
-    throw new ApiError("SCRAPING_ERROR", `Unable to detect source structure for ${sourceName}`, 422);
+  if (!config.searchPattern || !config.animePattern) {
+    throw new ApiError("SCRAPING_ERROR", `Unable to detect essential source structure for ${sourceName}`, 422);
   }
 
   configCache.set(sourceName, config);
   await persistDetectedConfig(sourceName, config);
+  
   return config;
 };
