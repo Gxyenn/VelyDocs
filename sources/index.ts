@@ -1,59 +1,63 @@
-import oploverz from './oploverz/config.json';
-import animeisme from './animeisme/config.json';
-import riie from './riie/config.json';
-import neonime from './neonime/config.json';
-import animeindo from './animeindo/config.json';
-import anibatch from './anibatch/config.json';
-import samehadaku from './samehadaku/config.json';
-import animehade from './animehade/config.json';
-import nanime from './nanime/config.json';
-import otakudesu from './otakudesu/config.json';
-import anoboy from './anoboy/config.json';
-import animeyou from './animeyou/config.json';
-import myanimeindo from './myanimeindo/config.json';
-import mangaku from './mangaku/config.json';
-import ruangotaku from './ruangotaku/config.json';
-import kotakanime from './kotakanime/config.json';
-import animepos from './animepos/config.json';
-import lk21 from './lk21/config.json';
-import gomunime from './gomunime/config.json';
-import awsubs from './awsubs/config.json';
-import onnime from './onnime/config.json';
-import animenonton from './animenonton/config.json';
-import kuramanime from './kuramanime/config.json';
-import winbu from './winbu/config.json';
-import kusonime from './kusonime/config.json';
-import anixverse from './anixverse/config.json';
-import anichin from './anichin/config.json';
+export type SourceConfig = {
+  baseUrl: string;
+  searchPattern: string;
+  animePattern: string;
+  episodePattern: string;
+  pageMap: {
+    ongoing: string;
+    completed: string;
+  };
+  listSelectors: {
+    title: string;
+    link: string;
+    image: string;
+  };
+};
+
+const makeConfig = (baseUrl: string): SourceConfig => ({
+  baseUrl,
+  searchPattern: "?s=",
+  animePattern: "/anime/",
+  episodePattern: "/episode/",
+  pageMap: {
+    ongoing: baseUrl,
+    completed: baseUrl,
+  },
+  listSelectors: {
+    title: "h1,h2,h3,.entry-title,.post-title",
+    link: "a[href]",
+    image: "img[src]",
+  },
+});
 
 export const SOURCE_REGISTRY = {
-  oploverz,
-  animeisme,
-  riie,
-  neonime,
-  animeindo,
-  anibatch,
-  samehadaku,
-  animehade,
-  nanime,
-  otakudesu,
-  anoboy,
-  animeyou,
-  myanimeindo,
-  mangaku,
-  ruangotaku,
-  kotakanime,
-  animepos,
-  lk21,
-  gomunime,
-  awsubs,
-  onnime,
-  animenonton,
-  kuramanime,
-  winbu,
-  kusonime,
-  anixverse,
-  anichin,
+  oploverz: makeConfig("https://oploverz.top"),
+  animeisme: makeConfig("https://animeisme.net"),
+  riie: makeConfig("https://riie.jp"),
+  neonime: makeConfig("https://neonime.com"),
+  animeindo: makeConfig("https://animeindo.my.id"),
+  anibatch: makeConfig("https://anibatch.me"),
+  samehadaku: makeConfig("https://samehadaku.email"),
+  animehade: makeConfig("https://animehade.my.id"),
+  nanime: makeConfig("https://nanime.biz"),
+  otakudesu: makeConfig("https://otakudesu.cloud"),
+  anoboy: makeConfig("https://anoboy.show"),
+  animeyou: makeConfig("https://animeyou.net"),
+  myanimeindo: makeConfig("https://myanimeindo.tv"),
+  mangaku: makeConfig("https://mangaku.lat"),
+  ruangotaku: makeConfig("https://ruangotaku.com"),
+  kotakanime: makeConfig("https://kotakanime.com"),
+  animepos: makeConfig("https://animepos.id"),
+  lk21: makeConfig("https://lk21official.lol"),
+  gomunime: makeConfig("https://gomunime.my.id"),
+  awsubs: makeConfig("https://awsubs.co"),
+  onnime: makeConfig("https://onnime.com"),
+  animenonton: makeConfig("https://animenonton.com"),
+  kuramanime: makeConfig("https://kuramanime.boo"),
+  winbu: makeConfig("https://winbu.tv"),
+  kusonime: makeConfig("https://kusonime.com"),
+  anixverse: makeConfig("https://anixverse.com"),
+  anichin: makeConfig("https://anichin.top"),
 } as const;
 
 export type SourceName = keyof typeof SOURCE_REGISTRY;

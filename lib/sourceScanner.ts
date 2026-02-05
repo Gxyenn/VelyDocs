@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs/promises";
-import { ApiError } from "./errors";
-import { fetchHtmlWithRetry, normalizeUrl } from "./http";
+import { ApiError } from "./errors.js";
+import { fetchHtmlWithRetry, normalizeUrl } from "./http.js";
 
 export type PageType =
   | "search"

@@ -1,4 +1,4 @@
-import { normalizeUrl } from "./http";
+import { normalizeUrl } from "./http.js";
 
 const providerPatterns = [
   { key: "Doodstream", pattern: /dood\./i },
