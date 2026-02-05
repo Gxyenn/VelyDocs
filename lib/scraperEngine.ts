@@ -39,6 +39,13 @@ const parseCard = (block: string, baseUrl: string) => {
 
 const pickFirstExisting = (values: Array<string | undefined>) => values.find(Boolean);
 
+const buildDetailUrl = (baseUrl: string, pattern: string, slug: string) => {
+  const cleanedPattern = pattern.startsWith("/") ? pattern : `/${pattern}`;
+  const normalizedPattern = cleanedPattern.endsWith("/") ? cleanedPattern : `${cleanedPattern}/`;
+  const cleanedSlug = slug.replace(/^\/+/, "");
+  return `${baseUrl}${normalizedPattern}${cleanedSlug}`;
+};
+
 export const search = async (source: string, baseUrl: string, query: string) => {
   if (!query.trim()) {
     throw new ApiError("INVALID_PARAM", "Query cannot be empty", 400);
@@ -53,7 +60,7 @@ export const search = async (source: string, baseUrl: string, query: string) => 
 
 export const getAnime = async (source: string, baseUrl: string, slug: string) => {
   const config = await scanSource(source, baseUrl);
-  const animeUrl = `${baseUrl}${config.animePattern}${slug}`;
+  const animeUrl = buildDetailUrl(baseUrl, config.animePattern, slug);
   const html = await fetchHtmlWithRetry(animeUrl);
 
   const title = pickFirstExisting([
@@ -80,7 +87,7 @@ export const getAnime = async (source: string, baseUrl: string, slug: string) =>
 
 export const getEpisode = async (source: string, baseUrl: string, slug: string) => {
   const config = await scanSource(source, baseUrl);
-  const episodeUrl = `${baseUrl}${config.episodePattern}${slug}`;
+  const episodeUrl = buildDetailUrl(baseUrl, config.episodePattern, slug);
   const html = await fetchHtmlWithRetry(episodeUrl);
 
   const title = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]?.replace(/<[^>]*>/g, " ").trim() ?? slug;

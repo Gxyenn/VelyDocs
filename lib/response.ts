@@ -7,11 +7,17 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, x-api-key",
 };
 
+const meta = {
+  message: "Welcome to Vely docs, Apikey Streaming Anime Free And Sub indo.",
+  Author: "Gxyenn",
+};
+
 export const optionsResponse = () => new Response(null, { headers: corsHeaders });
 
 export const successResponse = (source: string, data: unknown) =>
   new Response(
     JSON.stringify({
+      VelyDocsData: meta,
       status: true,
       source,
       data,
@@ -32,7 +38,7 @@ export const errorResponse = (error: unknown) => {
   const status =
     error instanceof ApiError ? error.status : error instanceof HttpError ? error.status : 500;
 
-  return new Response(JSON.stringify(payload), {
+  return new Response(JSON.stringify({ VelyDocsData: meta, ...payload }), {
     status,
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
