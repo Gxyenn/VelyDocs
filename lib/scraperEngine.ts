@@ -90,8 +90,11 @@ export const getEpisode = async (source: string, baseUrl: string, slug: string) 
     throw new ApiError("SCRAPING_ERROR", "No stream embeds detected on episode page", 422);
   }
 
+  const detectedSource = streams.find((stream) => stream.provider !== "Unknown")?.provider ?? "Unknown";
+
   return {
     title,
+    source: detectedSource,
     streams,
   };
 };

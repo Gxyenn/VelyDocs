@@ -1,4 +1,5 @@
 import { ApiError } from "./errors";
+import { HttpError } from "./http";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -24,9 +25,12 @@ export const errorResponse = (error: unknown) => {
   const payload =
     error instanceof ApiError
       ? { status: false, error_type: error.type, message: error.message }
+      : error instanceof HttpError
+      ? { status: false, error_type: error.type, message: error.message }
       : { status: false, error_type: "SCRAPING_ERROR", message: "Unexpected scraping failure" };
 
-  const status = error instanceof ApiError ? error.status : 500;
+  const status =
+    error instanceof ApiError ? error.status : error instanceof HttpError ? error.status : 500;
 
   return new Response(JSON.stringify(payload), {
     status,
