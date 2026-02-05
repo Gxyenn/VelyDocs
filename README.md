@@ -6,7 +6,5 @@
 
 ### Welcom To VelyDocs Apikey Anime Gratis Sub Indo.
 > Req 70/1Menit
-> 
 > Free
-> 
 > Gxyenn
