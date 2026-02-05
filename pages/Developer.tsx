@@ -46,18 +46,18 @@ const Developer: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 bg-zinc-950 border border-zinc-900 rounded-xl">
               <h3 className="font-bold text-white mb-2 uppercase">Winbu</h3>
-              <p className="text-sm text-zinc-500 mb-4">5 endpoints</p>
+              <p className="text-sm text-zinc-500 mb-4">7 endpoints</p>
               <div className="flex flex-wrap gap-2">
-                {['ongoing', 'latest', 'anime', 'search', 'genre'].map(e => (
+                {['index', 'anime', 'episode', 'search', 'genres', 'schedule', 'movies'].map(e => (
                   <span key={e} className="text-xs font-mono bg-zinc-900 text-zinc-400 px-2 py-1 rounded">{e}</span>
                 ))}
               </div>
             </div>
             <div className="p-6 bg-zinc-950 border border-zinc-900 rounded-xl">
               <h3 className="font-bold text-white mb-2 uppercase">Samehadaku</h3>
-              <p className="text-sm text-zinc-500 mb-4">6 endpoints</p>
+              <p className="text-sm text-zinc-500 mb-4">5 endpoints</p>
               <div className="flex flex-wrap gap-2">
-                {['ongoing', 'anime', 'search', 'schedule', 'genre', 'batch'].map(e => (
+                {['index', 'anime', 'episode', 'search', 'batch'].map(e => (
                   <span key={e} className="text-xs font-mono bg-zinc-900 text-zinc-400 px-2 py-1 rounded">{e}</span>
                 ))}
               </div>
@@ -66,16 +66,16 @@ const Developer: React.FC = () => {
               <h3 className="font-bold text-white mb-2 uppercase">Kuramanime</h3>
               <p className="text-sm text-zinc-500 mb-4">6 endpoints</p>
               <div className="flex flex-wrap gap-2">
-                {['ongoing', 'latest', 'anime', 'search', 'schedule', 'genre'].map(e => (
+                {['index', 'anime', 'episode', 'search', 'schedule', 'genres'].map(e => (
                   <span key={e} className="text-xs font-mono bg-zinc-900 text-zinc-400 px-2 py-1 rounded">{e}</span>
                 ))}
               </div>
             </div>
             <div className="p-6 bg-zinc-950 border border-zinc-900 rounded-xl">
               <h3 className="font-bold text-white mb-2 uppercase">Otakudesu</h3>
-              <p className="text-sm text-zinc-500 mb-4">7 endpoints</p>
+              <p className="text-sm text-zinc-500 mb-4">9 endpoints</p>
               <div className="flex flex-wrap gap-2">
-                {['ongoing', 'complete', 'anime', 'search', 'schedule', 'genre', 'batch'].map(e => (
+                {['index', 'ongoing', 'completed', 'schedule', 'genres', 'genre', 'anime', 'episode', 'watch'].map(e => (
                   <span key={e} className="text-xs font-mono bg-zinc-900 text-zinc-400 px-2 py-1 rounded">{e}</span>
                 ))}
               </div>
@@ -91,15 +91,15 @@ const Developer: React.FC = () => {
               <span className="text-xs font-bold uppercase text-zinc-500">TypeScript Example</span>
             </div>
             <pre className="p-6 overflow-x-auto text-sm text-zinc-400 font-mono">
-{`const API_BASE = 'https://api.velydocs.com/api';
-const API_KEY = 'YOUR_API_KEY'; // Optional
+{`const API_BASE = 'https://velydocs.vercel.app/api';
+const API_KEY = 'YOUR_API_KEY'; // Required for otakudesu endpoints
 
-async function getOngoing(source, page = 1) {
+async function getList(source, page = 1) {
   const headers = {};
   if (API_KEY) headers['X-API-Key'] = API_KEY;
   
   const res = await fetch(
-    \`\${API_BASE}/\${source}/ongoing?page=\${page}\`, 
+    \`\${API_BASE}/\${source}?page=\${page}\`, 
     { headers }
   );
   
@@ -107,9 +107,29 @@ async function getOngoing(source, page = 1) {
 }
 
 // Usage
-const data = await getOngoing('winbu', 1);
+const data = await getList('winbu', 1);
 console.log(data);`}
             </pre>
+          </div>
+        </section>
+
+
+        {/* Curl Examples */}
+        <section>
+          <h2 className="text-2xl font-black text-white mb-8 uppercase">Quick cURL</h2>
+          <div className="space-y-4">
+            <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg">
+              <div className="text-xs text-zinc-500 mb-2 uppercase">Base Endpoint</div>
+              <code className="block text-sm font-mono text-zinc-300 break-all">curl "https://velydocs.vercel.app/api/winbu"</code>
+            </div>
+            <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg">
+              <div className="text-xs text-zinc-500 mb-2 uppercase">Search Endpoint</div>
+              <code className="block text-sm font-mono text-zinc-300 break-all">curl "https://velydocs.vercel.app/api/animeindo/search?q=naruto"</code>
+            </div>
+            <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg">
+              <div className="text-xs text-zinc-500 mb-2 uppercase">Otakudesu with API Key</div>
+              <code className="block text-sm font-mono text-zinc-300 break-all">curl -H "X-API-Key: velydocs_free_1" "https://velydocs.vercel.app/api/otakudesu/ongoing?page=1"</code>
+            </div>
           </div>
         </section>
 
@@ -118,10 +138,13 @@ console.log(data);`}
           <h2 className="text-2xl font-black text-white mb-8 uppercase">Endpoint Patterns</h2>
           <div className="space-y-4">
             {[
-              { pattern: '/api/:source/ongoing?page=:page', desc: 'List ongoing anime' },
-              { pattern: '/api/:source/anime/:slug', desc: 'Get anime details' },
+              { pattern: '/api/:source', desc: 'Homepage/latest list untuk source terkait' },
               { pattern: '/api/:source/search?q=:query', desc: 'Search anime' },
-              { pattern: '/api/:source/schedule', desc: 'Weekly schedule' },
+              { pattern: '/api/:source/anime/:slug', desc: 'Get anime details' },
+              { pattern: '/api/:source/episode/:slug', desc: 'Get episode details / stream list' },
+              { pattern: '/api/:source/genres', desc: 'List available genres' },
+              { pattern: '/api/otakudesu/completed?page=:page', desc: 'List completed anime (otakudesu)' },
+              { pattern: '/api/winbu/movies', desc: 'List movie releases (winbu)' },
             ].map((item, i) => (
               <div key={i} className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg">
                 <div className="font-mono text-sm text-white mb-2">{item.pattern}</div>

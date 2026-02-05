@@ -3,12 +3,22 @@ import React, { useState } from 'react';
 const BASE_API_URL = '/api';
 
 const ENDPOINTS = [
-  { path: '/winbu/ongoing?page=1', desc: 'Winbu ongoing anime', source: 'winbu' },
-  { path: '/winbu/latest?page=1', desc: 'Winbu latest releases', source: 'winbu' },
-  { path: '/samehadaku/ongoing?page=1', desc: 'Samehadaku ongoing', source: 'samehadaku' },
-  { path: '/kuramanime/ongoing?page=1', desc: 'Kuramanime ongoing', source: 'kuramanime' },
+  { path: '/anichin', desc: 'Anichin terbaru', source: 'anichin' },
+  { path: '/anichin/search?q=one+piece', desc: 'Search anime donghua di Anichin', source: 'anichin' },
+  { path: '/animeindo', desc: 'Animeindo terbaru', source: 'animeindo' },
+  { path: '/animeindo/search?q=naruto', desc: 'Search anime di Animeindo', source: 'animeindo' },
+  { path: '/anixverse', desc: 'Anixverse terbaru', source: 'anixverse' },
+  { path: '/gomunime', desc: 'Gomunime terbaru', source: 'gomunime' },
+  { path: '/kuramanime', desc: 'Kuramanime homepage', source: 'kuramanime' },
+  { path: '/kuramanime/schedule', desc: 'Kuramanime schedule', source: 'kuramanime' },
+  { path: '/kusonime', desc: 'Kusonime terbaru', source: 'kusonime' },
+  { path: '/nanime', desc: 'Nanime terbaru', source: 'nanime' },
+  { path: '/oploverz', desc: 'Oploverz terbaru', source: 'oploverz' },
+  { path: '/samehadaku', desc: 'Samehadaku terbaru', source: 'samehadaku' },
   { path: '/otakudesu/ongoing?page=1', desc: 'Otakudesu ongoing', source: 'otakudesu' },
-  { path: '/otakudesu/complete?page=1', desc: 'Otakudesu completed anime', source: 'otakudesu' },
+  { path: '/otakudesu/completed?page=1', desc: 'Otakudesu completed anime', source: 'otakudesu' },
+  { path: '/winbu', desc: 'Winbu terbaru', source: 'winbu' },
+  { path: '/winbu/movies', desc: 'Winbu movies list', source: 'winbu' },
 ];
 
 const Docs: React.FC = () => {
@@ -47,7 +57,7 @@ const Docs: React.FC = () => {
 
       {/* API Key Input */}
       <div className="mb-8 p-6 bg-zinc-950 rounded-xl border border-zinc-900">
-        <h3 className="text-sm font-bold text-white mb-4 uppercase">API Key (Optional)</h3>
+        <h3 className="text-sm font-bold text-white mb-4 uppercase">API Key (Required for Otakudesu)</h3>
         <input
           type="text"
           value={apiKey}
@@ -56,7 +66,7 @@ const Docs: React.FC = () => {
           className="w-full px-4 py-3 bg-black border border-zinc-800 rounded-lg text-white font-mono"
         />
         <p className="text-xs text-zinc-600 mt-2">
-          Default: 60 req/min | Premium: 300 req/min | Unlimited: No limit
+          Gunakan API key untuk endpoint yang memerlukan autentikasi, terutama source Otakudesu.
         </p>
       </div>
 
