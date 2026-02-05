@@ -1,8 +1,8 @@
-import { assertValidApiKey } from "@lib/apikey";
-import { ApiError } from "@lib/errors";
-import { errorResponse, optionsResponse, successResponse } from "@lib/response";
-import { search } from "@lib/scraperEngine";
-import { SOURCE_REGISTRY } from "@sources/index";
+import { assertValidApiKey } from "../../lib/apikey";
+import { ApiError } from "../../lib/errors";
+import { errorResponse, optionsResponse, successResponse } from "../../lib/response";
+import { search } from "../../lib/scraperEngine";
+import { SOURCE_REGISTRY } from "../../sources/index";
 
 export default async function handler(request: Request, { params }: { params: { source: string } }) {
   if (request.method === "OPTIONS") return optionsResponse();
