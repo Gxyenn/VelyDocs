@@ -1,0 +1,11 @@
+{
+  "baseUrl": "https://winbu.tv",
+  "animePattern": "/anime/",
+  "episodePattern": "/episode/",
+  "searchPattern": "?s=",
+  "listSelectors": {
+    "title": "h1,h2,h3,.entry-title,.post-title",
+    "link": "a[href]",
+    "image": "img[src]"
+  }
+}
