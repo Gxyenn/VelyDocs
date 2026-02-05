@@ -1,7 +1,7 @@
-import { ApiError } from "./errors";
-import { fetchHtmlWithRetry, normalizeUrl } from "./http";
-import { scanSource } from "./sourceScanner";
-import { extractStreams } from "./streamExtractor";
+import { ApiError } from "./errors.js";
+import { fetchHtmlWithRetry, normalizeUrl } from "./http.js";
+import { scanSource } from "./sourceScanner.js";
+import { extractStreams } from "./streamExtractor.js";
 
 export const extractRepeatingBlocks = (html: string) => {
   const blocks = html.match(/<(article|li|div)[^>]*>[\s\S]*?<\/\1>/gi) ?? [];

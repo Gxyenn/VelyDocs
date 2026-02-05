@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://anixverse.com",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://anixverse.com",
+    "completed": "https://anixverse.com"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",

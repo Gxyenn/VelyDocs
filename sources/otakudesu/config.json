@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://otakudesu.cloud",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://otakudesu.cloud",
+    "completed": "https://otakudesu.cloud"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",

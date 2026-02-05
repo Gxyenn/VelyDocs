@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://animepos.id",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://animepos.id",
+    "completed": "https://animepos.id"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

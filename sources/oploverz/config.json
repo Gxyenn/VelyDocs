@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://oploverz.top",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://oploverz.top",
+    "completed": "https://oploverz.top"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",

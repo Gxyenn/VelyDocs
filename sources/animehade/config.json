@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://animehade.my.id",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://animehade.my.id",
+    "completed": "https://animehade.my.id"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

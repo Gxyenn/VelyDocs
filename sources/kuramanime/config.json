@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://kuramanime.boo",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://kuramanime.boo",
+    "completed": "https://kuramanime.boo"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",

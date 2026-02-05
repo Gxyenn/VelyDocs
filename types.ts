@@ -23,15 +23,43 @@ export interface ApiResponse {
   source: string;
   status: 'success' | 'error';
   count?: number;
-  data?: any;
+  data?: unknown;
   pagination?: PaginationData;
   message?: string;
   timestamp?: string;
   tier?: string;
 }
 
-export type ScraperSource = 'winbu' | 'samehadaku' | 'kuramanime' | 'otakudesu';
-export type ScraperType = 'ongoing' | 'latest' | 'genre' | 'anime' | 'search' | 'schedule' | 'complete' | 'batch';
+export type ScraperSource =
+  | 'oploverz'
+  | 'animeisme'
+  | 'riie'
+  | 'neonime'
+  | 'animeindo'
+  | 'anibatch'
+  | 'samehadaku'
+  | 'animehade'
+  | 'nanime'
+  | 'otakudesu'
+  | 'anoboy'
+  | 'animeyou'
+  | 'myanimeindo'
+  | 'mangaku'
+  | 'ruangotaku'
+  | 'kotakanime'
+  | 'animepos'
+  | 'lk21'
+  | 'gomunime'
+  | 'awsubs'
+  | 'onnime'
+  | 'animenonton'
+  | 'kuramanime'
+  | 'winbu'
+  | 'kusonime'
+  | 'anixverse'
+  | 'anichin';
+
+export type ScraperType = 'search' | 'anime' | 'episode' | 'list';
 
 export interface EndpointDef {
   method: 'GET';

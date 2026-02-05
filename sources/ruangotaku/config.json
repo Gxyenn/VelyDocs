@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://ruangotaku.com",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://ruangotaku.com",
+    "completed": "https://ruangotaku.com"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
