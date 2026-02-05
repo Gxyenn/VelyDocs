@@ -33,7 +33,7 @@ const Hero = () => {
 
           <p className="mx-auto mb-8 md:mb-10 max-w-2xl text-base md:text-lg text-muted-foreground">
             REST API lengkap untuk data anime dari berbagai sumber. 
-            Otakudesu, Samehadaku, Kuramanime, dan {sources.length - 3} sumber lainnya dalam satu API.
+            27 sumber streaming terintegrasi dalam satu format API yang konsisten.
           </p>
 
           {/* CTA Buttons */}
@@ -86,7 +86,7 @@ const Hero = () => {
 {`{
   "message": "Welcome To VelyDocs, Apikey Anime Gratis Sub Indo",
   "author": "Gxyenn",
-  "endpoint": "/api/otakudesu/episode/one-piece-episode-1100",
+  "endpoint": "/api/oploverz/episode/one-piece-episode-1100",
   "status": true,
   "source": "Otakudesu",
   "result": {

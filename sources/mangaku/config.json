@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://mangaku.lat",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://mangaku.lat",
+    "completed": "https://mangaku.lat"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

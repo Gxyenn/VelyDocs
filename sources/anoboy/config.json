@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://anoboy.show",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://anoboy.show",
+    "completed": "https://anoboy.show"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

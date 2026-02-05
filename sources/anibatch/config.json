@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://anibatch.me",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://anibatch.me",
+    "completed": "https://anibatch.me"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://neonime.com",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://neonime.com",
+    "completed": "https://neonime.com"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

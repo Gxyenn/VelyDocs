@@ -16,7 +16,7 @@ const Landing: React.FC = () => {
           
           <p className="text-zinc-400 text-lg max-w-2xl mx-auto mb-12">
             Production-ready, real-time anime scraping API with unified JSON responses. 
-            Support for 4 major anime sources with 24 total endpoints.
+            Support for 27 refreshed streaming sources with unified generic endpoints.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -35,10 +35,10 @@ const Landing: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-8 text-sm font-bold text-zinc-600">
-            <div>4 Sources</div>
+            <div>27 Sources</div>
             <div>Real-time</div>
             <div>Rate Limited</div>
-            <div>24 Endpoints</div>
+            <div>Dynamic Endpoints</div>
           </div>
         </div>
       </div>
@@ -59,9 +59,9 @@ const Landing: React.FC = () => {
               </p>
             </div>
             <div className="p-8 rounded-2xl bg-zinc-950 border border-zinc-900">
-              <h3 className="text-lg font-black text-white mb-4 uppercase">4 Major Sources</h3>
+              <h3 className="text-lg font-black text-white mb-4 uppercase">27 Streaming Sources</h3>
               <p className="text-sm text-zinc-500">
-                Winbu, Samehadaku, Kuramanime, and Otakudesu unified in one API.
+                Daftar sumber terbaru telah discan ulang dan dipetakan ke endpoint API generik.
               </p>
             </div>
           </div>

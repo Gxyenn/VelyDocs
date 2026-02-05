@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://onnime.com",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://onnime.com",
+    "completed": "https://onnime.com"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

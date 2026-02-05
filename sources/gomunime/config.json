@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://gomunime.my.id",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://gomunime.my.id",
+    "completed": "https://gomunime.my.id"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",

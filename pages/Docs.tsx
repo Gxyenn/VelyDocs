@@ -3,12 +3,11 @@ import React, { useState } from 'react';
 const BASE_API_URL = '/api';
 
 const ENDPOINTS = [
-  { path: '/winbu/ongoing?page=1', desc: 'Winbu ongoing anime', source: 'winbu' },
-  { path: '/winbu/latest?page=1', desc: 'Winbu latest releases', source: 'winbu' },
-  { path: '/samehadaku/ongoing?page=1', desc: 'Samehadaku ongoing', source: 'samehadaku' },
-  { path: '/kuramanime/ongoing?page=1', desc: 'Kuramanime ongoing', source: 'kuramanime' },
-  { path: '/otakudesu/ongoing?page=1', desc: 'Otakudesu ongoing', source: 'otakudesu' },
-  { path: '/otakudesu/complete?page=1', desc: 'Otakudesu completed anime', source: 'otakudesu' },
+  { path: '/oploverz/search?q=one+piece', desc: 'Cari anime dari Oploverz', source: 'oploverz' },
+  { path: '/animeindo/anime/one-piece', desc: 'Detail anime dari Animeindo', source: 'animeindo' },
+  { path: '/samehadaku/episode/one-piece-episode-1', desc: 'Streaming episode dari Samehadaku', source: 'samehadaku' },
+  { path: '/anichin/list/ongoing', desc: 'Daftar ongoing dari Anichin', source: 'anichin' },
+  { path: '/kusonime/list/completed', desc: 'Daftar completed dari Kusonime', source: 'kusonime' },
 ];
 
 const Docs: React.FC = () => {

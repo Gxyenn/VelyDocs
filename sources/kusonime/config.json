@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://kusonime.com",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://kusonime.com",
+    "completed": "https://kusonime.com"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",

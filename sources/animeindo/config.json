@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://animeindo.my.id",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://animeindo.my.id",
+    "completed": "https://animeindo.my.id"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",

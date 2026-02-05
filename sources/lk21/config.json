@@ -1,11 +1,11 @@
 {
-  "baseUrl": "https://winbu.tv",
+  "baseUrl": "https://lk21official.lol",
   "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
   "pageMap": {
-    "ongoing": "https://winbu.tv",
-    "completed": "https://winbu.tv"
+    "ongoing": "https://lk21official.lol",
+    "completed": "https://lk21official.lol"
   },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",

@@ -1,8 +1,12 @@
 {
   "baseUrl": "https://nanime.biz",
+  "searchPattern": "?s=",
   "animePattern": "/anime/",
   "episodePattern": "/episode/",
-  "searchPattern": "?s=",
+  "pageMap": {
+    "ongoing": "https://nanime.biz",
+    "completed": "https://nanime.biz"
+  },
   "listSelectors": {
     "title": "h1,h2,h3,.entry-title,.post-title",
     "link": "a[href]",
