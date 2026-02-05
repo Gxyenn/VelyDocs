@@ -1,5 +1,5 @@
-import { ApiError } from "./errors.js";
-import { fetchHtmlWithRetry, normalizeUrl } from "./http.js";
+import { ApiError } from "./errors";
+import { fetchHtmlWithRetry, normalizeUrl } from "./http";
 
 export type PageType =
   | "search"
