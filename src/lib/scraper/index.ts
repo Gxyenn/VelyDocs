@@ -180,7 +180,7 @@ let cachedNonce: string | null = null;
 
 export async function fetchIframeUrl(dataContent: string): Promise<string | null> {
   try {
-    const ajaxUrl = 'https://otakudesu.best/wp-admin/admin-ajax.php';
+    const ajaxUrl = 'https://otakudesu.blog/wp-admin/admin-ajax.php';
     
     // Get nonce if not cached
     if (!cachedNonce) {
@@ -252,7 +252,7 @@ export async function fetchIframeUrl(dataContent: string): Promise<string | null
 
 // ===================== OTAKUDESU SCRAPER =====================
 export const OtakudesuScraper = {
-  baseUrl: 'https://otakudesu.best',
+  baseUrl: 'https://otakudesu.blog',
 
   // ===================== HOME PAGE =====================
   parseHome(html: string): { ongoing: AnimeInfo[]; complete: AnimeInfo[] } {

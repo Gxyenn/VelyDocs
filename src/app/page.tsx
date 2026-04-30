@@ -39,7 +39,7 @@ const apiEndpoints = {
   otakudesu: {
     name: 'Otakudesu',
     icon: '🎬',
-    baseUrl: 'https://otakudesu.best',
+    baseUrl: 'https://otakudesu.blog',
     description: 'Situs streaming dan download anime subtitle Indonesia',
     endpoints: [
       {
@@ -219,7 +219,7 @@ const apiEndpoints = {
           query: 'naruto',
           pagination: { totalPages: 1, currentPage: 1, nextPage: false },
           data: [
-            { title: 'Boruto: Naruto Next Generations Subtitle Indonesia', slug: 'borot-sub-indo', image: 'https://otakudesu.best/wp-content/...', genre: 'Action, Adventure, Martial Arts', status: 'Ongoing', score: '6.15' }
+            { title: 'Boruto: Naruto Next Generations Subtitle Indonesia', slug: 'borot-sub-indo', image: 'https://otakudesu.blog/wp-content/...', genre: 'Action, Adventure, Martial Arts', status: 'Ongoing', score: '6.15' }
           ]
         }
       },
@@ -254,7 +254,7 @@ const apiEndpoints = {
           genre: 'action',
           pagination: { totalPages: 44, currentPage: 1, nextPage: 2 },
           data: [
-            { title: 'Kizoku Tensei', slug: 'kizoku-tensei-subtitle-indonesia', image: 'https://otakudesu.best/wp-content/...', studio: 'CompTown', genre: 'Action, Adventure, Fantasy' }
+            { title: 'Kizoku Tensei', slug: 'kizoku-tensei-subtitle-indonesia', image: 'https://otakudesu.blog/wp-content/...', studio: 'CompTown', genre: 'Action, Adventure, Fantasy' }
           ]
         }
       },
