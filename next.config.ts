@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Cloudflare Pages needs the standalone output for next-on-pages.
+  output: "standalone",
   typescript: {
     ignoreBuildErrors: true,
   },
