@@ -5,7 +5,7 @@ Di Cloudflare Pages, route API tersebut akan di-compile jadi **Pages Functions**
 
 ## Build settings (Cloudflare Pages)
 - Framework preset: `None` (atau Next.js jika tersedia, tapi tetap pakai command di bawah)
-- Build command: `npm run pages:build`
+- Build command: `npm run pages:build` (sudah di-set juga di `wrangler.toml`)
 - Build output directory: `.vercel/output/static`
 
 ## Catatan penting
