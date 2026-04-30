@@ -3,6 +3,8 @@ import { fetchHtml, OtakudesuScraper } from '@/lib/scraper';
 import { createApiResponse, createErrorResponse } from '@/lib/api-response';
 import * as cheerio from 'cheerio';
 
+export const runtime = 'edge';
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);

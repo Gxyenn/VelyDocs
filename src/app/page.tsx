@@ -34,6 +34,8 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
 
+export const runtime = 'edge';
+
 // API Endpoints Data
 const apiEndpoints = {
   otakudesu: {

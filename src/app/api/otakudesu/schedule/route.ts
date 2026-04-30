@@ -2,6 +2,8 @@ import { NextRequest } from 'next/server';
 import { fetchHtml, OtakudesuScraper } from '@/lib/scraper';
 import { createApiResponse, createErrorResponse } from '@/lib/api-response';
 
+export const runtime = 'edge';
+
 export async function GET(request: NextRequest) {
   try {
     const html = await fetchHtml(`${OtakudesuScraper.baseUrl}/jadwal-rilis/`);
