@@ -15,8 +15,12 @@ export function createApiResponse(
   // Extract IP from request
   const ip = extractIP(request);
   
+  // Extract API Key from headers or query params
+  const url = new URL(request.url);
+  const apiKey = request.headers.get('x-api-key') || url.searchParams.get('key');
+  
   // Check rate limit - REAL check, shared across ALL endpoints
-  const rateInfo = checkRateLimit(ip);
+  const rateInfo = checkRateLimit(ip, apiKey);
   
   // If rate limited - RETURN 429 with proper error
   if (!rateInfo.allowed) {
@@ -83,7 +87,12 @@ export function createErrorResponse(
 ): NextResponse {
   // Still count towards rate limit even on errors
   const ip = extractIP(request);
-  const rateInfo = checkRateLimit(ip);
+  
+  // Extract API Key from headers or query params
+  const url = new URL(request.url);
+  const apiKey = request.headers.get('x-api-key') || url.searchParams.get('key');
+  
+  const rateInfo = checkRateLimit(ip, apiKey);
   
   return NextResponse.json({
     VelyData: {

@@ -18,25 +18,15 @@ export async function GET(request: NextRequest) {
       return createErrorResponse(request, 'Failed to fetch complete anime data', 500);
     }
     
-    const data = OtakudesuScraper.parseHome(html);
-    
-    // Parse pagination
-    const $ = cheerio.load(html);
-    const currentPage = parseInt($('.pagination .current, .page-numbers.current').text() || page);
-    const hasNextPage = $('.pagination .next, .page-numbers.next').length > 0;
-    const totalPages = parseInt($('.pagination .page-numbers').not('.next').not('.prev').last().text()) || 1;
+    const data = OtakudesuScraper.parseAnimeList(html);
     
     return createApiResponse(request, 'complete', {
       status: 'success',
       source: 'otakudesu',
       baseUrl: OtakudesuScraper.baseUrl,
-      pagination: {
-        totalPages,
-        currentPage,
-        nextPage: hasNextPage ? currentPage + 1 : false
-      },
-      total: data.complete.length,
-      data: data.complete
+      pagination: data.pagination,
+      total: data.data.length,
+      data: data.data
     });
   } catch (error) {
     console.error('Otakudesu complete error:', error);

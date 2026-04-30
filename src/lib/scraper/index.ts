@@ -149,16 +149,46 @@ function decodeBase64(str: string): string {
   }
 }
 
+// ===================== ANTI-BAN UTILITIES =====================
+const USER_AGENTS = [
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0',
+];
+
+function getRandomUserAgent(): string {
+  return USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
+}
+
+async function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // ===================== FETCH HTML =====================
 export async function fetchHtml(url: string): Promise<string | null> {
   try {
+    // Random delay between 500ms and 1500ms to mimic human behavior
+    await delay(500 + Math.random() * 1000);
+
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'User-Agent': getRandomUserAgent(),
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
         'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
+        'Pragma': 'no-cache',
+        'Referer': 'https://www.google.com/',
+        'Sec-Ch-Ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        'Sec-Ch-Ua-Mobile': '?0',
+        'Sec-Ch-Ua-Platform': '"Windows"',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'cross-site',
+        'Sec-Fetch-User': '?1',
+        'Upgrade-Insecure-Requests': '1',
       },
       redirect: 'follow',
     });
@@ -180,7 +210,7 @@ let cachedNonce: string | null = null;
 
 export async function fetchIframeUrl(dataContent: string): Promise<string | null> {
   try {
-    const ajaxUrl = 'https://otakudesu.blog/wp-admin/admin-ajax.php';
+    const ajaxUrl = `${OtakudesuScraper.baseUrl}/wp-admin/admin-ajax.php`;
     
     // Get nonce if not cached
     if (!cachedNonce) {
@@ -190,11 +220,13 @@ export async function fetchIframeUrl(dataContent: string): Promise<string | null
       const nonceResponse = await fetch(ajaxUrl, {
         method: 'POST',
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'User-Agent': getRandomUserAgent(),
           'Accept': 'application/json, text/javascript, */*; q=0.01',
           'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
           'X-Requested-With': 'XMLHttpRequest',
+          'Origin': OtakudesuScraper.baseUrl,
+          'Referer': OtakudesuScraper.baseUrl,
         },
         body: nonceFormData.toString(),
       });
@@ -223,11 +255,13 @@ export async function fetchIframeUrl(dataContent: string): Promise<string | null
     const iframeResponse = await fetch(ajaxUrl, {
       method: 'POST',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'User-Agent': getRandomUserAgent(),
         'Accept': 'application/json, text/javascript, */*; q=0.01',
         'Accept-Language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'X-Requested-With': 'XMLHttpRequest',
+        'Origin': OtakudesuScraper.baseUrl,
+        'Referer': OtakudesuScraper.baseUrl,
       },
       body: iframeFormData.toString(),
     });
@@ -262,8 +296,8 @@ export const OtakudesuScraper = {
     
     const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu', 'random'];
 
-    // Parse each section
-    $('.rseries').each((_, section) => {
+    // Parse each section - support multiple selectors
+    $('.rseries, .rapi, .venz').each((_, section) => {
       const $section = $(section);
       
       $section.find('.detpost').each((_, el) => {
@@ -307,6 +341,26 @@ export const OtakudesuScraper = {
         }
       });
     });
+
+    // If still empty, try more generic selectors
+    if (ongoing.length === 0 && complete.length === 0) {
+      $('.detpost').each((_, el) => {
+        const $el = $(el);
+        const link = $el.find('a').first().attr('href') || '';
+        const title = cleanText($el.find('h2, .jdlflm').text());
+        if (title && link && link.includes('/anime/')) {
+          const info: AnimeInfo = {
+            title,
+            link,
+            slug: extractSlug(link),
+            image: $el.find('img').attr('src')
+          };
+          // Heuristic: if it has "Episode", it's likely ongoing
+          if ($el.text().includes('Episode')) ongoing.push(info);
+          else complete.push(info);
+        }
+      });
+    }
 
     return { ongoing, complete };
   },

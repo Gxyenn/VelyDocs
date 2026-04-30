@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    const url = `https://otakudesu.best/episode/${slug}/`;
+    const url = `${OtakudesuScraper.baseUrl}/episode/${slug}/`;
 
     const html = await fetchHtml(url);
     

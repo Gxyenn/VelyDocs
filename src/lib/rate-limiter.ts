@@ -63,7 +63,18 @@ export function extractIP(request: Request): string {
 }
 
 // Check rate limit - ONE limit per IP across ALL endpoints
-export function checkRateLimit(ip: string): RateLimitResult {
+export function checkRateLimit(ip: string, apiKey?: string | null): RateLimitResult {
+  // UNLIMITED Access for Gxyenn969
+  if (apiKey === 'Gxyenn969') {
+    return {
+      allowed: true,
+      limit: Infinity,
+      remaining: Infinity,
+      resetTime: Date.now() + WINDOW_MS,
+      used: 0
+    };
+  }
+
   // Use ONLY IP as identifier - so all endpoints share the same limit
   const identifier = ip;
   const limit = DEFAULT_LIMIT;
