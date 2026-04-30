@@ -3,10 +3,14 @@
 `src/app/api/*` **sudah benar** untuk Next.js App Router.
 Di Cloudflare Pages, route API tersebut akan di-compile jadi **Pages Functions** saat build memakai `@cloudflare/next-on-pages`.
 
-## Build settings (Cloudflare Pages)
-- Framework preset: `None` (atau Next.js jika tersedia, tapi tetap pakai command di bawah)
-- Build command: `npm run pages:build` (sudah di-set juga di `wrangler.toml`)
+## Build settings (WAJIB di Dashboard Pages)
+- Framework preset: `None`
+- Build command: `npm run pages:build`
 - Build output directory: `.vercel/output/static`
+
+## Kenapa jangan pakai `[build]` di `wrangler.toml`
+Cloudflare Pages saat ini menolak field `[build]` di `wrangler.toml` untuk Pages project.
+Build command harus diisi di Dashboard Pages, bukan di file Wrangler.
 
 ## Catatan penting
 - Jangan rename `src/app/api` jadi `functions`.
